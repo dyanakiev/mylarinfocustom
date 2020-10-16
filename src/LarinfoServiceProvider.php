@@ -2,7 +2,6 @@
 
 namespace Matriphe\Larinfo;
 
-use DavidePastore\Ipinfo\Ipinfo;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Support\ServiceProvider;
 use Linfo\Linfo;
@@ -25,14 +24,9 @@ class LarinfoServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(LarinfoContract::class, function ($app) {
-            $larinfo = new Larinfo(new Ipinfo(), new Request(), new Linfo(), new Manager());
+            $larinfo = new Larinfo(new Request(), new Linfo(), new Manager());
 
-            $token = config('services.ipinfo.token');
-
-            if (! empty($token)) {
-                return $larinfo->setIpinfoConfig($token);
-            }
-
+  
             $larinfo->setDatabaseConfig(config('database.connections.'.config('database.default')));
 
             return $larinfo;
