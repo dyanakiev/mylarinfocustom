@@ -17,28 +17,6 @@ class Larinfo implements LarinfoContract
      * @access protected
      */
     protected $results = [
-        'host' => [
-            'city' => null,
-            'country' => null,
-            'hostname' => null,
-            'ip' => null,
-            'loc' => null,
-            'org' => null,
-            'phone' => null,
-            'postal' => null,
-            'region' => null,
-        ],
-        'client' => [
-            'city' => null,
-            'country' => null,
-            'hostname' => null,
-            'ip' => null,
-            'loc' => null,
-            'org' => null,
-            'phone' => null,
-            'postal' => null,
-            'region' => null,
-        ],
         'server' => [
             'software' => [
                 'os' => null,
@@ -118,10 +96,8 @@ class Larinfo implements LarinfoContract
      * @param \Linfo\Linfo                              $linfo
      * @param \Illuminate\Database\Capsule\Manager      $database
      */
-    public function __construct(Ipinfo $ipinfo, Request $request, Linfo $linfo, Database $database)
+    public function __construct(Request $request, Linfo $linfo, Database $database)
     {
-        $this->ipinfo = $ipinfo;
-
         $this->request = $request;
 
         $this->linfo = $linfo;
@@ -150,12 +126,7 @@ class Larinfo implements LarinfoContract
      * @param string $token (default: null)
      * @param bool   $debug (default: false)
      */
-    public function setIpinfoConfig($token = null, $debug = false)
-    {
-        $this->ipinfo->__construct(compact('token', 'debug'));
 
-        return $this;
-    }
 
     /**
      * Get Host IP info.
@@ -163,25 +134,7 @@ class Larinfo implements LarinfoContract
      * @access public
      * @return arrah
      */
-    public function getHostIpinfo()
-    {
-        $this->hostIpinfo();
 
-        return $this->results['host'];
-    }
-
-    /**
-     * Get Client IP info.
-     *
-     * @access public
-     * @return array
-     */
-    public function getClientIpinfo()
-    {
-        $this->clientIpinfo();
-
-        return $this->results['client'];
-    }
 
     /**
      * Get server software info.
@@ -252,8 +205,6 @@ class Larinfo implements LarinfoContract
      */
     public function getInfo()
     {
-        $this->hostIpinfo();
-        $this->clientIpinfo();
         $this->getServerInfoSoftware();
         $this->serverInfoHardware();
         $this->uptime();
@@ -286,28 +237,14 @@ class Larinfo implements LarinfoContract
      *
      * @access protected
      */
-    protected function hostIpinfo()
-    {
-        $ipinfo = $this->ipinfo->getYourOwnIpDetails()->getProperties();
-        $this->results['host'] = $ipinfo;
 
-        return $this;
-    }
 
     /**
      * Parse client info.
      *
      * @access protected
      */
-    protected function clientIpinfo()
-    {
-        $ip = $this->request->getClientIp();
 
-        $ipinfo = $this->ipinfo->getFullIpDetails($ip)->getProperties();
-        $this->results['client'] = $ipinfo;
-
-        return $this;
-    }
 
     /**
      * Get CPU string.
