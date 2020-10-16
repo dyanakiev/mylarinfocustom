@@ -1,5 +1,5 @@
 {
-    "name": "mylarinfocustom",
+    "name": "dimitar/mylarinfocustom",
     "description": "Display system information (IP address, OS, versions) for Laravel.",
     "type": "library",
     "keywords":[  
