@@ -13,23 +13,6 @@ interface LarinfoContract
      * @param string $token (default: null)
      * @param bool   $debug (default: false)
      */
-    public function setIpinfoConfig($token = null, $debug = false);
-
-    /**
-     * Get Host IP info.
-     *
-     * @access public
-     * @return arrah
-     */
-    public function getHostIpinfo();
-
-    /**
-     * Get Client IP info.
-     *
-     * @access public
-     * @return array
-     */
-    public function getClientIpinfo();
 
     /**
      * Get server software info.
