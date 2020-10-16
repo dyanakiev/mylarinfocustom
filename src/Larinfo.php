@@ -2,7 +2,6 @@
 
 namespace Matriphe\Larinfo;
 
-use DavidePastore\Ipinfo\Ipinfo;
 use Illuminate\Database\Capsule\Manager as Database;
 use Linfo\Linfo;
 use PDO;
